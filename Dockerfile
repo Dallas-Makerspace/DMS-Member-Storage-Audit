@@ -19,14 +19,17 @@ RUN make install
 FROM  python:rc-alpine
 MAINTAINER infrastructure@dallasmakerspace.org
 
-# Needed to reach the hub
-RUN apk --no-cache add ca-certificates 
-
 COPY --from=builder1 /usr/bin/fwatchdog  /usr/bin/fwatchdog
 COPY . /data/
 
+WORKDIR /data
+
+# Needed to reach the hub and pypi
+RUN apk --no-cache add ca-certificates && \
+    pip install -R /data/requirements.txt
+
 EXPOSE 8080
 ENV VIRTUAL_PORT 8080
-ENV fprocess "/data/member-storage-audit.py"
+ENV fprocess "/usr/bin/python /data/member-storage-audit.py"
 HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
 CMD ["/usr/bin/fwatchdog"]
