@@ -9,7 +9,7 @@ WORKDIR /data
 RUN apk --no-cache add make curl ca-certificates \
     && curl -sL https://github.com/openfaas/faas/releases/download/0.7.1/fwatchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog /data/*.py \
-    && pip install -R /data/requirements.txt
+    && pip install -r /data/requirements.txt
 
 EXPOSE 8080
 ENV VIRTUAL_PORT 8080
