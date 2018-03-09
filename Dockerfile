@@ -13,6 +13,6 @@ RUN apk --no-cache add make curl ca-certificates \
 
 EXPOSE 8080
 ENV VIRTUAL_PORT 8080
-ENV fprocess "/usr/bin/python /data/member-storage-audit.py"
+ENV fprocess "/usr/bin/env python /data/member-storage-audit.py"
 HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
 CMD ["/usr/bin/fwatchdog"]
