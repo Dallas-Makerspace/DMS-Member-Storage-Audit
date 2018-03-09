@@ -1,0 +1,9 @@
+---
+provider:
+    name: faas
+    gateway: http://localhost:8080 # can be a remote server
+
+functions:
+    member-storage-audit:
+        lang: dockerfile
+        image: dallasmakerspace/member-storage-audit:latest
